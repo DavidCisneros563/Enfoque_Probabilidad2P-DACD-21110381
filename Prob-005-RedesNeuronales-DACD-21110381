@@ -1,0 +1,30 @@
+#David Alejandro Cisneros Delgadillo
+#21110381
+#6E1
+#Inteligencia Artificial
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Definir los datos de entrada y salida
+train_data = ...  # Datos de entrenamiento
+train_labels = ...  # Etiquetas de entrenamiento
+test_data = ...  # Datos de prueba
+test_labels = ...  # Etiquetas de prueba
+
+# Definir la arquitectura de la red neuronal
+model = models.Sequential([
+    layers.Flatten(input_shape=(28, 28)),  # Capa de entrada: aplanar la imagen de 28x28 píxeles
+    layers.Dense(128, activation='relu'),  # Capa oculta con 128 neuronas y función de activación ReLU
+    layers.Dense(10, activation='softmax')  # Capa de salida con 10 neuronas (una para cada clase) y activación softmax
+])
+
+# Compilar el modelo
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',  # Función de pérdida para clasificación multiclase
+              metrics=['accuracy'])
+
+# Entrenar el modelo
+model.fit(train_data, train_labels, epochs=10, validation_data=(test_data, test_labels))
+
+# Evaluar el modelo
+test_loss, test_acc = model.evaluate(test_data, test_labels)
